@@ -1,0 +1,406 @@
+/* Reseteo básico: Establece reglas generales de reset para evitar márgenes/paddings inconsistentes */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: "Roboto", sans-serif;
+    background-color: #f5f5f5;  /* Fondo claro para el body */
+    overflow: hidden;  /* Evita barras de desplazamiento no deseadas */
+}
+
+/* Elementos globales: Definición de estilos básicos para textos, inputs, botones */
+h1 {
+    font-size: 40px;  /* Tamaño grande para los títulos */
+    color: #000;  /* Color negro */
+    margin-bottom: 20px;  /* Espacio debajo de los títulos */
+}
+
+h3 {
+    margin-bottom: 10px;  /* Espacio debajo de los h3 */
+}
+
+p {
+    font-size: 10px;  /* Tamaño pequeño para los párrafos */
+}
+
+input, textarea, select, button {
+    width: 100%;  /* Los elementos de formulario ocupan todo el ancho disponible */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;  /* Borde gris claro */
+    border-radius: 10px;  /* Bordes redondeados */
+    margin-bottom: 20px;  /* Espacio debajo de los inputs */
+}
+
+textarea {
+    height: 150px;  /* Altura mayor para el área de texto */
+    resize: none;  /* Impide el redimensionamiento del textarea */
+}
+
+button {
+    background-color: #1f98de;  /* Fondo azul para los botones */
+    color: #fff;  /* Texto blanco */
+    cursor: pointer;  /* Cursor en forma de mano */
+    border: none;
+    transition: background-color 0.3s;  /* Transición suave de color */
+    padding: 5px 10px;
+    border-radius: 5px;  /* Bordes redondeados para los botones */
+}
+
+button:hover {
+    background-color: #007bbd;  /* Cambio de color al pasar el cursor */
+}
+
+span {
+    margin-left: 20px;
+    color: white;  /* Color blanco para los textos de los span */
+}
+
+hr {
+    margin-bottom: 20px;  /* Espacio debajo de los separadores horizontales */
+}
+
+/* Contenedores principales: Define la estructura general de la página y sus secciones */
+#ContenedorGeneral {
+    width: 100%;
+    height: 100%;
+    display: flex;  /* Diseño en fila (horizontal) */
+}
+
+#ContenedorMaterias_Bloque_F1 {
+    width: 300px;  /* Ancho fijo para la barra lateral */
+    background-color: #057771;  /* Fondo verde oscuro */
+    padding: 20px 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;  /* Disposición en columna */
+    overflow-y: auto;  /* Permite desplazamiento si el contenido es muy largo */
+}
+
+#ContenedorMaterias_Bloque_F2 {
+    flex: 1;  /* Ocupa el espacio restante */
+    overflow-y: auto;  /* Desplazamiento si es necesario */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;}
+
+/* Opciones: Estilos para las opciones dentro de la barra lateral */
+.ContenedorMaterias_Bloque_F1_Opciones {
+    display: flex;  /* Disposición en fila para el icono y el texto */
+    align-items: center;  /* Alineación vertical centrada */
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;  /* Espacio debajo de cada opción */
+    cursor: pointer;  /* Cursor en forma de mano al pasar sobre las opciones */
+    transition: background-color 0.3s;  /* Transición suave al pasar sobre la opción */
+}
+
+.ContenedorMaterias_Bloque_F1_Opciones:hover {
+    background-color: rgba(255, 255, 255, 0.2);  /* Color de fondo cuando se pasa el cursor */
+}
+
+.ContenedorMaterias_Bloque_F1_Opciones img {
+    width: 24px;  /* Tamaño fijo de los iconos */
+    margin-right: 10px;  /* Espacio entre el icono y el texto */
+}
+
+
+
+/* Inicio del burger */
+#menuToggle{
+    display: none;
+    margin-right: 10px;
+}
+#checkbox {
+    display: none;
+  }
+  
+  .toggle {
+    position: relative;
+    width: 30px;
+    cursor: pointer;
+    margin: auto;
+    display: block;
+    height: calc(4px * 3 + 8px * 2);
+  }
+  
+  .bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: calc(4px / 2);
+    background: #ffffff;
+    color: inherit;
+    opacity: 1;
+    transition: none 0.35s cubic-bezier(.5,-0.35,.35,1.5) 0s;
+  }
+  
+  /***** Collapse Animation *****/
+  
+  .bar--top {
+    bottom: calc(50% + 8px + 4px/ 2);
+    transition-property: bottom,margin,transform;
+    transition-delay: calc(0s + 0.35s),0s,0s;
+  }
+  
+  .bar--middle {
+    top: calc(50% - 4px/ 2);
+    transition-property: top,opacity;
+    transition-duration: 0.35s,0s;
+    transition-delay: calc(0s + 0.35s * 1.3),calc(0s + 0.35s * 1.3);
+  }
+  
+  .bar--bottom {
+    top: calc(50% + 8px + 4px/ 2);
+    transition-property: top,transform;
+    transition-delay: 0s;
+  }
+  
+  #checkbox:checked + .toggle .bar--top {
+    bottom: calc(50% - 11px - 4px);
+    margin-bottom: calc(11px + 4px/ 2);
+    transform: rotate(45deg);
+    transition-delay: calc(0s + 0.35s * .3),calc(0s + 0.35s * 1.3),calc(0s + 0.35s * 1.3);
+  }
+  
+  #checkbox:checked + .toggle .bar--middle {
+    top: calc(50% + 11px);
+    opacity: 0;
+    transition-duration: 0.35s,0s;
+    transition-delay: 0s,calc(0s + 0.35s);
+  }
+  
+  #checkbox:checked + .toggle .bar--bottom {
+    top: calc(50% - 4px/ 2);
+    transform: rotate(-45deg);
+    transition-delay: calc(0s + 0.35s * 1.3),calc(0s + 0.35s * 1.3);
+  }
+
+
+
+#menu {
+    position: absolute;
+    right: 20px;
+    margin-top: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0s 0.5s;
+    z-index: 10; /* Asegura que esté sobre otros elementos */
+
+}
+
+#menu ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0;
+}
+
+#menu ul li {
+    padding: 10px;
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: #000000;
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#menu ul li a:hover {
+    background-color: #057771;
+    color: #ffffff;
+}
+
+#checkbox:checked + .toggle + #menu {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.5s;
+    transition: opacity 0.5s 0.5s, visibility 0s 0.5s;
+}
+
+/* Fin del burger */
+
+
+
+
+/* Contenedor principal de las secciones */
+#ContenedorMensajesCreados, #ContenedorNuevoMensaje {
+    width: 100%; /* Cada sección ocupará la mitad del ancho */
+    display: inline-block;
+    vertical-align: top;
+    padding: 20px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+/* Estilo para la sección "Mensajes Creados" */
+#ContenedorMensajesCreados {
+    border-right: 1px solid #ccc; /* Línea divisoria entre columnas */
+}
+
+.mensajes-creados {
+    height: 100%;
+}
+
+.lista-mensajes {
+    height: 100%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff; /* Fondo blanco para contrastar */
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.lista-mensajes div {
+    margin: 10px 0;
+    cursor: pointer;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.lista-mensajes div:hover {
+    background-color: #e0e0e0;
+}
+
+/* Estilo para la sección "Nuevo" */
+#ContenedorNuevoMensaje {
+    padding-left: 20px; /* Espacio a la izquierda para separación */
+}
+
+.nuevo-mensaje {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nuevo-mensaje h3 {
+    margin-bottom: 20px;
+    color: #057771;
+}
+
+.nuevo-mensaje label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.nuevo-mensaje textarea,
+.nuevo-mensaje select {
+    margin-bottom: 20px;
+}
+
+/* Botones "Actualizar", "Crear" y "Eliminar" */
+.nuevo-mensaje button {
+    width: calc(33.33% - 10px); /* Los tres botones ocupan el 100% del ancho con margen */
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+button#actualizar-mensaje {
+    background-color: #007bbd; /* Color amarillo para "Actualizar" */
+    color: #fff;
+}
+
+button#crear-mensaje {
+    background-color: #007bbd; /* Verde para "Crear" */
+    color: #fff;
+}
+
+button#eliminar-mensaje {
+    background-color: #007bbd; /* Rojo para "Eliminar" */
+    color: #fff;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen  and (max-width:1000px){    
+    #ContenedorMaterias_Bloque_F2{
+        display: inline-block;
+        width: 100%;
+
+    } 
+    
+}
+
+
+
+
+@media screen  and (max-width:800px){       
+    
+    #ContenedorGeneral {
+        width: 100%;
+        height: 100%;
+        display: inline-block; 
+        overflow-y: auto;
+    }
+
+    #ContenedorMaterias_Bloque_F1{
+        width: 100%;
+        background-color: #057771;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        box-sizing: border-box;
+        align-items: flex-end;
+    }
+    .ContenedorMaterias_Bloque_F1_Opciones{     
+        display: none;  
+    }
+
+    hr{
+        display: none;
+    }
+    #menuToggle{
+        display: inline;
+    }
+
+   
+
+   
+    
+}  
+
+
+@media screen  and (max-width:650px){       
+    
+   h1{
+        font-size: 30px;
+    }  
+    
+   
+}  
+
