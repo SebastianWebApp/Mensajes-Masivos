@@ -165,7 +165,7 @@ function Obtener_Cliente(Mensaje) {
 
       var M_Telefono = "593" + clienteEncontrado.Telefono.slice(1);
 
-      var Mensaje_Modificado = Mensaje.replace("{Nombre}",clienteEncontrado.Nombre).replace("{Teléfono}",clienteEncontrado.Telefono).replace("{Fecha de Nacimiento}",clienteEncontrado.Fecha_nacimiento).replace("{Ocupación}",clienteEncontrado.Ocupacion)
+      var Mensaje_Modificado = Mensaje.replaceAll("{Nombre}",clienteEncontrado.Nombre).replaceAll("{Teléfono}",clienteEncontrado.Telefono).replaceAll("{Fecha de Nacimiento}",clienteEncontrado.Fecha_nacimiento).replaceAll("{Ocupación}",clienteEncontrado.Ocupacion)
 
       datos.push({
          Nombre: clienteEncontrado.Nombre, Telefono: M_Telefono, Mensaje: Mensaje_Modificado, Estado: "Pendiente", ClaseEstado: "estado-pendiente"
