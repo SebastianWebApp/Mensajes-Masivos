@@ -1,0 +1,265 @@
+version: '3.8'
+
+services:
+
+  # <-------------------------------------- Bases de datos ---------------------------------------------------->
+  base_mysql:
+    image: mysql:latest
+    container_name: base_mysql
+    ports:
+      - "3307:${PORT_MYSQL}" # Puerto para conectar MySQL
+
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"   # Contraseña del usuario root
+
+    # Se coloca esta parte para que si ocurre un error se reinicie de forma automática
+    restart: always # Reinicia automáticamente en caso de error
+
+
+    volumes:
+      - mysql_data:/var/lib/mysql # Volumen persistente para datos
+    networks:
+      - app-network
+
+    # Servicio para Redis
+  
+  base_mongoDB:
+    image: mongo:latest
+    container_name: base_mongoDB
+    ports:
+      - "${PORT_MONGODB}:${PORT_MONGODB}"
+    
+    restart: always # Reinicio del microservicio en caso de fallo
+
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+  
+  # <------------------------------ Microservicios de Estructura de Base ---------------------------------------------->
+
+  estructura_iniciar_sesion:
+    build: ./Estructura_Iniciar_Sesion
+    container_name: estructura_iniciar_sesion
+    image: sebastianwebapp/proyecto_septimo_estructura_iniciar_sesion:latest
+    ports:
+      - "${PORT_ESTRUCTURA_INICIAR_SESION}:${PORT_ESTRUCTURA_INICIAR_SESION}"  # Mapeo del puerto 4000
+  
+    depends_on:
+      - base_mysql
+    
+    restart: "no" 
+
+    networks:
+      - app-network
+  estructura_crear_mensajes:
+    build: ./Estructura_Crear_Mensajes
+    container_name: estructura_crear_mensajes
+    image: sebastianwebapp/proyecto_septimo_estructura_crear_mensajes:latest
+    ports:
+      - "${PORT_ESTRUCTURA_CREAR_MENSAJES}:${PORT_ESTRUCTURA_CREAR_MENSAJES}"  # Mapeo del puerto 4000
+  
+    depends_on:
+      - base_mysql
+    
+    restart: "no" 
+
+    networks:
+      - app-network
+  
+  
+  # <-------------------------------------- Microservicios ---------------------------------------------------->
+
+  # NOTA: Los microservicios no necesitan volumen ya que no tienen datos a persistir
+
+  encriptacion:
+    build: ./Encriptacion
+    container_name: encriptacion
+    image: sebastianwebapp/proyecto_septimo_encriptacion:latest
+    ports:
+      - "${PORT_ENCRIPTACION}:${PORT_ENCRIPTACION}"  # Mapeo del puerto 4000
+      
+    restart: always # Reinicio del microservicio en caso de fallo
+
+    networks:
+      - app-network
+
+  inicio_sesion:
+    build: ./Inicio_Sesion
+    container_name: inicio_sesion
+    image: sebastianwebapp/proyecto_septimo_inicio_sesion:latest
+    ports:
+      - "${PORT_INICIO_SESION}:${PORT_INICIO_SESION}"  # Mapeo del puerto 4000
+  
+    depends_on:
+      - base_mysql
+      - encriptacion  
+
+
+    
+    restart: always # Reinicio del microservicio en caso de fallo
+
+    networks:
+      - app-network
+
+  crear_cliente:
+    build: ./Crear_Cliente
+    container_name: crear_cliente
+    image: sebastianwebapp/proyecto_septimo_crear_cliente:latest
+    ports:
+      - "${PORT_CREAR_CLIENTE}:${PORT_CREAR_CLIENTE}"  # Mapeo del puerto 4000
+  
+    depends_on:
+      - base_mongoDB
+
+    restart: always # Reinicio del microservicio en caso de fallo
+
+    networks:
+      - app-network
+
+  crear_mensajes:
+    build: ./Crear_mensajes
+    container_name: crear_mensajes
+    image: sebastianwebapp/proyecto_septimo_crear_mensajes:latest
+    ports:
+      - "${PORT_CREAR_MENSAJES}:${PORT_CREAR_MENSAJES}"  # Mapeo del puerto 4000
+  
+    depends_on:
+      - base_mysql
+   
+    
+    restart: always # Reinicio del microservicio en caso de fallo
+
+    networks:
+      - app-network
+
+  enviar_mensajes:
+    build: ./Enviar_Mensajes
+    container_name: enviar_mensajes
+    image: sebastianwebapp/proyecto_septimo_enviar_mensajes:latest
+    restart: always
+    volumes:
+      - wwebjs_auth:/app/.wwebjs_auth  # Esto es un volumen de Docker
+    ports:
+      - "${PORT_ENVIAR_MENSAJES}:${PORT_ENVIAR_MENSAJES}"  # Mapeo del puerto 4000
+    environment:
+      - CHROME_BIN=/usr/bin/chromium-browser
+
+    networks:
+      - app-network
+  # <-------------------------------------- Frontend ---------------------------------------------------->
+
+  # Servicio del Frontend
+  frontend:
+    build:
+      context: ./F_Inicio # En donde se encuentra el archivo Dockerfile
+    container_name: frontend
+    image: sebastianwebapp/proyecto_septimo_frontend:latest
+    ports:
+      - "${PORT_FRONTEND}:${PORT_FRONTEND}"  # Mapea el puerto 3000
+
+    
+    restart: always # Reinicio del microservicio en caso de fallo
+
+
+    depends_on:
+      - estructura_iniciar_sesion
+      - inicio_sesion # Asegura que el backend se ejecute primero
+      
+    networks:
+      - app-network # Si no se coloca en la misma red no van a poder interactuar
+
+  f_cliente:
+    build:
+      context: ./F_Cliente # En donde se encuentra el archivo Dockerfile
+    container_name: f_cliente
+    image: sebastianwebapp/proyecto_septimo_f_cliente:latest
+    ports:
+      - "${PORT_F_CLIENTE}:${PORT_F_CLIENTE}"  # Mapea el puerto 3000
+
+    restart: always # Reinicio del microservicio en caso de fallo
+
+
+    depends_on:
+      - crear_cliente
+      
+    networks:
+      - app-network # Si no se coloca en la misma red no van a poder interactuar
+
+
+  f_mensaje:
+    build:
+      context: ./F_Mensaje # En donde se encuentra el archivo Dockerfile
+    container_name: f_mensaje
+    image: sebastianwebapp/proyecto_septimo_f_mensaje:latest
+    ports:
+      - "${PORT_F_MENSAJE}:${PORT_F_MENSAJE}"  # Mapea el puerto 3000
+
+    
+    restart: always # Reinicio del microservicio en caso de fallo
+
+
+    depends_on:
+      - estructura_crear_mensajes
+      - crear_mensajes # Asegura que el backend se ejecute primero
+      
+    networks:
+      - app-network # Si no se coloca en la misma red no van a poder interactuar
+
+  f_envio:
+    build:
+      context: ./F_Envio # En donde se encuentra el archivo Dockerfile
+    container_name: f_envio
+    image: sebastianwebapp/proyecto_septimo_f_envio:latest
+    ports:
+      - "${PORT_F_ENVIO}:${PORT_F_ENVIO}"  # Mapea el puerto 3000
+
+    
+    restart: always # Reinicio del microservicio en caso de fallo
+
+
+    depends_on:
+      - estructura_crear_mensajes
+      - crear_cliente
+      - crear_mensajes # Asegura que el backend se ejecute primero
+      
+    networks:
+      - app-network # Si no se coloca en la misma red no van a poder interactuar
+
+  f_qr:
+    build:
+      context: ./F_QR # En donde se encuentra el archivo Dockerfile
+    container_name: f_qr
+    image: sebastianwebapp/proyecto_septimo_f_qr:latest
+    ports:
+      - "${PORT_F_QR}:${PORT_F_QR}"  # Mapea el puerto 3000
+
+    
+    restart: always # Reinicio del microservicio en caso de fallo
+
+
+    depends_on:
+      - enviar_mensajes
+
+      
+    networks:
+      - app-network # Si no se coloca en la misma red no van a poder interactuar
+
+
+
+# <----------------------- Configuración de redes y volúmenes ------------------------------------------>
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+
+  mysql_data:
+    driver: local
+
+  mongodb_data:
+    driver: local
+    
+  wwebjs_auth:
+    driver: local
