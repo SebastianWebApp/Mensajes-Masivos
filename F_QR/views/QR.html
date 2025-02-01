@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/crear_mensajes.css">
+    <link rel="icon" href="/src/icono.jpg" type="image/jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">    
+    <title>QR WhatsApp</title>
+</head>
+<body>
+    <main id="ContenedorGeneral">
+        <!-- Menú lateral -->
+        <section id="ContenedorMaterias_Bloque_F1">
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" style="text-align: center; cursor: default;">
+                <h2 style="color: white;">MassMessage</h2>
+            </div>
+
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Clientes">
+                <img src="/src/lista.png" alt="Lista de Clientes" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Lista de Clientes</span>
+            </div>          
+            
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Crear_Mensaje">
+                <img src="/src/mensaje.png" alt="Crear Mensajes" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Crear Mensajes</span>
+            </div>
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" style="border-radius: 20px; border: 2px solid #ffffff;" onclick="location.href = '';">
+                <img src="/src/vincular.png" alt="Crear Mensajes" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Vincular WhatsApp</span>
+            </div>
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Envio">
+                <img src="/src/enviar.png" alt="Enviar Mensajes"  style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Enviar Mensajes</span>
+            </div>
+
+           
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Salir">
+                <img src="/src/exit.png" alt="Salir" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Salir</span>
+            </div>
+
+           
+          
+            <div id="menuToggle"> 
+              <input id="checkbox" type="checkbox">
+              <label class="toggle" for="checkbox">
+                  <div class="bar bar--top"></div>
+                  <div class="bar bar--middle"></div>
+                  <div class="bar bar--bottom"></div>
+              </label>
+
+              <div id="menu">
+                <ul>
+                    <li><a id="Clientes1">Lista de Clientes</a></li>
+                    <li><a id="Crear_Mensaje1">Crear Mensajes</a></li>
+                    <li><a onclick="location.href = '';">Vincular WhatsApp</a></li>
+                    <li><a id="Envio1">Enviar Mensajes</a></li>
+                    <li><a id="Salir1">Salir</a></li>
+                </ul>
+            </div>
+            </div>
+      
+
+        </section>
+
+        <section id="ContenedorMaterias_Bloque_F2">    
+
+         
+            <div id="Contenedor_QR">
+                <h1 id="Mensaje_QR"></h1>
+                <img id="QR">
+
+            </div>
+           
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/qr_what.js"></script>
+    
+</body>
+</html>

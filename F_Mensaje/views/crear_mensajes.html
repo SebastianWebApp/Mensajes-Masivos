@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/crear_mensajes.css">
+    <link rel="icon" href="/src/icono.jpg" type="image/jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">    
+    <title>Crear Mensajes</title>
+</head>
+<body>
+    <main id="ContenedorGeneral">
+        <!-- Menú lateral -->
+        <section id="ContenedorMaterias_Bloque_F1">
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" style="text-align: center; cursor: default;">
+                <h2 style="color: white;">MassMessage</h2>
+            </div>
+
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Clientes">
+                <img src="/src/lista.png" alt="Lista de Clientes" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Lista de Clientes</span>
+            </div>          
+            
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" style="border-radius: 20px; border: 2px solid #ffffff;" onclick="location.href = '';">
+                <img src="/src/mensaje.png" alt="Crear Mensajes" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Crear Mensajes</span>
+            </div>
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Vinculacion">
+                <img src="/src/vincular.png" alt="Crear Mensajes" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Vincular WhatsApp</span>
+            </div>
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Envio">
+                <img src="/src/enviar.png" alt="Enviar Mensajes"  style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Enviar Mensajes</span>
+            </div>
+
+           
+
+            <div class="ContenedorMaterias_Bloque_F1_Opciones" id="Salir">
+                <img src="/src/exit.png" alt="Salir" style="vertical-align: middle;">
+                <span style="vertical-align: middle;">Salir</span>
+            </div>
+
+           
+          
+            <div id="menuToggle"> 
+              <input id="checkbox" type="checkbox">
+              <label class="toggle" for="checkbox">
+                  <div class="bar bar--top"></div>
+                  <div class="bar bar--middle"></div>
+                  <div class="bar bar--bottom"></div>
+              </label>
+
+              <div id="menu">
+                <ul>
+                    <li><a id="Clientes1">Lista de Clientes</a></li>
+                    <li><a onclick="location.href = '';">Crear Mensajes</a></li>
+                    <li><a id="Vinculacion1">Vincular WhatsApp</a></li>
+                    <li><a id="Envio1">Enviar Mensajes</a></li>
+                    <li><a id="Salir1">Salir</a></li>
+                </ul>
+            </div>
+            </div>
+      
+
+        </section>
+
+        <section id="ContenedorMaterias_Bloque_F2">    
+
+             <!-- Sección de Crear Nuevo Mensaje -->
+             <section id="ContenedorNuevoMensaje">
+                <div class="nuevo-mensaje">
+                    <h3>Nuevo</h3>
+                    <label for="elemento">Elementos personalizados</label>
+                    <select id="elemento">
+                        <option value="Nombre">Nombre</option>
+                        <option value="Teléfono">Teléfono</option>
+                        <option value="Fecha de Nacimiento">Fecha de Nacimiento</option>
+                        <option value="Ocupación">Ocupación</option>
+
+                    </select>
+                    <button style="margin-bottom: 20px;" id="agregar-elemento">Agregar Elemento</button>
+                    
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..."></textarea>
+                    
+                    <!-- Botones de acción -->
+                    <button style="display: none;" id="actualizar-mensaje">Actualizar</button>
+                    <button id="crear-mensaje">Crear</button>
+                    <button style="display: none;" id="eliminar-mensaje">Eliminar</button>
+                </div>
+            </section>
+
+            <!-- Sección de Mensajes Creados -->
+            <section id="ContenedorMensajesCreados">
+                <div class="mensajes-creados">
+                    <h3>Mensajes Creados</h3>
+                    <input style="margin-bottom: 5px;" id="Filtro" autocomplete="off">
+                    <div class="lista-mensajes">
+                        <!-- Los mensajes se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </section>
+
+           
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/crear_mensajes.js"></script>
+    
+</body>
+</html>

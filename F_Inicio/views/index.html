@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" href="/src/icono.jpg" type="image/jpg">
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <main>
+        <section id="Imagen">
+
+            <img src="/src/login.jpg">
+
+        </section>
+        <section class="Contenido">
+
+            <h1>Bienvenidos a MassMessage</h1>
+            <p>Lleva tus mensajes al siguiente nivel con nuestro sistema de envíos masivos por WhatsApp: rápido, efectivo y 100% personalizado.<br>¡Conecta con tu audiencia como nunca antes!</p>
+            <h3>Cédula</h3>
+            <input type="text" id="Inp_Cedula" required placeholder="1234567890" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" autocomplete="off">
+            <h3>Contraseña</h3>
+            <input type="text" id="Inp_Clave" required placeholder="uce_123" oninput="this.value = this.value.replace(/[^A-Za-zñÑÁÉÍÓÚáéíóú0-9_]/g, '');" autocomplete="off">
+           
+
+            <button id="Btn_Iniciar_Sesion" style="background-color: #077783; color: white; margin-top: 20px;">Iniciar Sesión</button>
+            <button id="Btn_Crear_Cuenta" style="color: #077783; margin-bottom: 20px;">Crear Cuenta</button>
+
+        </section>
+    </main>
+
+    <script src="/js/index.js"></script>
+
+</body>
+</html>
+
