@@ -6,11 +6,11 @@
 
 ## 🔥 Características principales
 
-✅ 12 Microservicios para la gestión y procesamiento de mensajes.
-✅ Express.js para el desarrollo de los servidores backend.
-✅ MySQL para almacenar datos fijos como configuraciones.
-✅ MongoDB para datos dinámicos como la información de los clientes.
-✅ WhatsApp Web para la automatización del envío de mensajes.
+✅ 12 Microservicios para la gestión y procesamiento de mensajes.<br>
+✅ Express.js para el desarrollo de los servidores backend.<br>
+✅ MySQL para almacenar datos fijos como configuraciones.<br>
+✅ MongoDB para datos dinámicos como la información de los clientes.<br>
+✅ WhatsApp Web para la automatización del envío de mensajes.<br>
 ✅ Contenedorización con Docker y Docker Compose.
 
 <h4> 🛠️ 𝐓𝐞𝐜𝐧𝐨𝐥𝐨𝐠𝐢́𝐚𝐬 𝐔𝐭𝐢𝐥𝐢𝐳𝐚𝐝𝐚𝐬 </h4>  
